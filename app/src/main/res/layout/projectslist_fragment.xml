@@ -11,14 +11,15 @@
         android:layout_height="wrap_content"
         android:text="My Projects"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="36sp"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/myproject_textView"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@+id/myproject_textView"
         tools:itemCount="3"
-        tools:listitem="@layout/project_item"
-        />
+        tools:listitem="@layout/project_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>
