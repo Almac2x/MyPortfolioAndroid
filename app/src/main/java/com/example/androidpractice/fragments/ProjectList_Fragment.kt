@@ -59,7 +59,6 @@ class projectList_fragment : Fragment(R.layout.projectslist_fragment_layout) {
 
         rcv.addItemDecoration(divider)
 
-
     }
 
 

@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/projectView_fragment"
-        android:name="com.example.androidpractice.fragments.projectView_fragment"
+        android:name="com.example.androidpractice.fragments.ProjectView_fragment"
         android:label="projectView_fragment" >
         <action
             android:id="@+id/action_projectView_fragment_to_projectList_fragment"
