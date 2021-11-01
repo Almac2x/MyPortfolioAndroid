@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/projectList_fragment"
     android:id="@+id/nav_graph">
 
 
+    <fragment
+        android:id="@+id/projectList_fragment"
+        android:name="com.example.androidpractice.fragments.projectList_fragment"
+        android:label="projectList_fragment" >
+        <action
+            android:id="@+id/action_projectList_fragment_to_projectView_fragment"
+            app:destination="@id/projectView_fragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/projectView_fragment"
+        android:name="com.example.androidpractice.fragments.projectView_fragment"
+        android:label="projectView_fragment" >
+        <action
+            android:id="@+id/action_projectView_fragment_to_projectList_fragment"
+            app:destination="@id/projectList_fragment" />
+    </fragment>
 
 
 </navigation>
