@@ -23,7 +23,7 @@ import com.example.androidpractice.databinding.ProjectslistFragmentLayoutBinding
 import com.example.androidpractice.viewmodels.MyViewModel
 
 
-class projectList_fragment : Fragment(R.layout.projectslist_fragment_layout) {
+class projectList_fragment : Fragment(R.layout.projectslist_fragment_layout) ,  ProjectAdapter.OnItemClickListener{
 
     lateinit var binding: ProjectslistFragmentLayoutBinding
     lateinit var myViewModel : MyViewModel
@@ -52,13 +52,28 @@ class projectList_fragment : Fragment(R.layout.projectslist_fragment_layout) {
 
 
         val rcv = binding.projectListRecycleViewer
-        rcv?.adapter = ProjectAdapter(requireContext(),myViewModel.myProfiles.profileList[0].profileProjects)
+        rcv?.adapter = ProjectAdapter(requireContext(),myViewModel.myProfiles.profileList[0].profileProjects,this)
         
         val divider = DividerItemDecoration(this.context,DividerItemDecoration.VERTICAL)
         ResourcesCompat.getDrawable(resources,R.drawable.divider,null)?.let { divider.setDrawable(it) }
 
         rcv.addItemDecoration(divider)
 
+    }
+
+    override fun onItemClickListener(positon: Int) {
+        var bundle = Bundle()
+
+        val projectName = "${myViewModel.myProfiles.profileList[0].profileProjects[positon].projectName}"
+        val projectDescription = "${myViewModel.myProfiles.profileList[0].profileProjects[positon].projectDescription}"
+        val projectImage = "${myViewModel.myProfiles.profileList[0].profileProjects[positon].projectImage}"
+
+        bundle.putString("projectName",projectName)
+        bundle.putString("projectDesc",projectDescription)
+        bundle.putString("projectImage",projectImage)
+
+
+        findNavController().navigate(R.id.action_projectList_fragment_to_projectView_fragment, bundle)
     }
 
 
