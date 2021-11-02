@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -34,6 +35,8 @@ class projectList_fragment : Fragment(R.layout.projectslist_fragment_layout) ,  
             myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         } ?: throw Throwable("invalid activity")
         myViewModel.updateActionBarTitle("MyPortfolio")
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +52,6 @@ class projectList_fragment : Fragment(R.layout.projectslist_fragment_layout) ,  
         binding.profilePositionView.text = "${ myViewModel.myProfiles.profileList[0].position}"
 
         Glide.with(view).load(myViewModel.myProfiles.profileList[0].profileImageLoc).into(binding.profilePic)
-
 
         val rcv = binding.projectListRecycleViewer
         rcv?.adapter = ProjectAdapter(requireContext(),myViewModel.myProfiles.profileList[0].profileProjects,this)
@@ -71,7 +73,6 @@ class projectList_fragment : Fragment(R.layout.projectslist_fragment_layout) ,  
         bundle.putString("projectName",projectName)
         bundle.putString("projectDesc",projectDescription)
         bundle.putString("projectImage",projectImage)
-
 
         findNavController().navigate(R.id.action_projectList_fragment_to_projectView_fragment, bundle)
     }

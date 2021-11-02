@@ -32,6 +32,10 @@ class Projects{
             projectDescription = "A Rastaman is a man who is running for a Senate seat to oppose China’s influence in the region. He had already been in the news all over the world for a long time because of his goal to get to stand for elections and to get elected to the Senate.\n" +
                     "\n" +
                     "Mr. Ronaldo Plaza, known as Rastaman Yow, demonstrated with banners in his hands. When he was photographed demonstrating in favor of protecting the Filipinos territory, he went viral. Let us know more about how he became viral prior to learning about Who Is Rastaman for President.\n" +
+                    "\n" +
+                    "A Rastaman is a man who is running for a Senate seat to oppose China’s influence in the region. He had already been in the news all over the world for a long time because of his goal to get to stand for elections and to get elected to the Senate.\n" +
+                    "\n" +
+                    "Mr. Ronaldo Plaza, known as Rastaman Yow, demonstrated with banners in his hands. When he was photographed demonstrating in favor of protecting the Filipinos territory, he went viral. Let us know more about how he became viral prior to learning about Who Is Rastaman for President.\n" +
                     "\n",
             projectImage = "https://scontent.fmnl4-3.fna.fbcdn.net/v/t1.6435-9/52536892_2256432321239937_5140111912326922240_n.jpg?_nc_cat=102&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=I7QcACA7WbgAX92yS2t&_nc_ht=scontent.fmnl4-3.fna&oh=e93c886430352a05c638b3f804db837b&oe=61A74F0B"
         ))
