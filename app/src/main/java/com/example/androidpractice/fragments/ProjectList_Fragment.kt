@@ -10,12 +10,14 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
+import com.example.androidpractice.DividerItemDecorator
 import com.example.androidpractice.MyProfiles
 import com.example.androidpractice.ProjectAdapter
 import com.example.androidpractice.R
@@ -56,9 +58,10 @@ class projectList_fragment : Fragment(R.layout.projectslist_fragment_layout) ,  
         val rcv = binding.projectListRecycleViewer
         rcv?.adapter = ProjectAdapter(requireContext(),myViewModel.myProfiles.profileList[0].profileProjects,this)
         
-        val divider = DividerItemDecoration(this.context,DividerItemDecoration.VERTICAL)
-        ResourcesCompat.getDrawable(resources,R.drawable.divider,null)?.let { divider.setDrawable(it) }
+        //val divider = DividerItemDecoration(this.context,DividerItemDecoration.VERTICAL)
+       // ResourcesCompat.getDrawable(resources,R.drawable.divider,null)?.let { divider.setDrawable(it) }
 
+        val divider = DividerItemDecorator(ContextCompat.getDrawable(requireContext(), R.drawable.divider)!!)
         rcv.addItemDecoration(divider)
 
     }
