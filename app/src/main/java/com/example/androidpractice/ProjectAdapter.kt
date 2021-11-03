@@ -36,13 +36,18 @@ class ProjectAdapter(val context: Context, private val data: MutableList<Project
 
         fun bindProjectInfo(name: String, header:String) {
           binding.projectTextName.text= name
-            binding.projectTextDescription.text = header
+          binding.projectTextDescription.text = header
         }
 
         fun bindImage(url: String?) {
-            if (url != null) {
-                Glide.with(context).load(url).into(binding.projectImageView)
+
+            url?.let { imageUrl ->
+                Glide.with(context).load(imageUrl).into(binding.projectImageView)
             }
+
+          /*  if (url != null) {
+                Glide.with(context).load(url).into(binding.projectImageView)
+            }*/
         }
 
         override fun onClick(p0: View?) {
