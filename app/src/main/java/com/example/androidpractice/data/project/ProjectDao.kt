@@ -14,6 +14,9 @@ interface ProjectDao {
     @Delete
     suspend fun deleteProject(project: Project)
 
+    @Update
+    suspend fun updateProject(project:Project)
+
     //Query annotation of Room. This is a query that gets all the values in the project table
     // and orders it by their id in ascending order
     @Query(value = "SELECT * FROM project_table ORDER BY id ASC")

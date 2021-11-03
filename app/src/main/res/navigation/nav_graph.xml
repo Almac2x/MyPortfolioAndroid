@@ -52,7 +52,7 @@
             android:id="@+id/action_editProjectFragment_to_projectList_fragment"
             app:destination="@id/projectList_fragment" />
         <argument
-            android:name="currentUser"
+            android:name="currentProject"
             app:argType="com.example.androidpractice.data.project.Project" />
     </fragment>
 

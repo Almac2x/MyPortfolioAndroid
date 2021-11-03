@@ -11,4 +11,8 @@ class ProjectRepository( private val projectDao : ProjectDao)  {
         projectDao.addProject(project)
     }
 
+    suspend fun updateProject(project:Project){
+        projectDao.updateProject(project)
+    }
+
 }

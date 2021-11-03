@@ -1,39 +1,27 @@
 package com.example.androidpractice.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.bumptech.glide.Glide
 import com.example.androidpractice.DividerItemDecorator
-import com.example.androidpractice.MyProfiles
 import com.example.androidpractice.ProjectAdapter
 import com.example.androidpractice.R
-import com.example.androidpractice.data.project.Project
-import com.example.androidpractice.databinding.ActivityMainBinding
 import com.example.androidpractice.databinding.ProjectslistFragmentLayoutBinding
 import com.example.androidpractice.viewmodels.MyViewModel
-import com.example.androidpractice.viewmodels.UserViewModel
+import com.example.androidpractice.viewmodels.ProjectViewModel
 
 
 class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  ProjectAdapter.OnItemClickListener{
 
     lateinit var binding: ProjectslistFragmentLayoutBinding
     lateinit var myViewModel : MyViewModel
-    lateinit var userViewModel: UserViewModel
+    lateinit var projectViewModel: ProjectViewModel
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -58,9 +46,9 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
         rcv?.adapter = adapter
 
         //Initialize ViewModel in this Fragment
-        myViewModel = ViewModelProvider(this)[MyViewModel::class.java] // remove this after userViewModel is setup properly
-        userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
-        userViewModel.readAllProjects.observe(viewLifecycleOwner, Observer { project ->
+        myViewModel = ViewModelProvider(this)[MyViewModel::class.java] // remove this after projectViewModel is setup properly
+        projectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
+        projectViewModel.readAllProjects.observe(viewLifecycleOwner, Observer { project ->
             adapter.setData(project)
         })
 
@@ -95,7 +83,7 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
     override fun onItemClickListener(positon: Int) {
         var bundle = Bundle()
 
-        val project = userViewModel.readAllProjects.value?.get(positon)
+        val project = projectViewModel.readAllProjects.value?.get(positon)
         println( "Project Name: "+ project?.projectName)
 
         val projectName = "${project?.projectName}"

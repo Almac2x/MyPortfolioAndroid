@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidpractice.data.project.Project
 import com.example.androidpractice.databinding.ProjectItemBinding
+import com.example.androidpractice.fragments.EditProjectFragmentDirections
+import com.example.androidpractice.fragments.ProjectListFragmentDirections
 
 class ProjectAdapter(val context: Context, var clicker: OnItemClickListener) : RecyclerView.Adapter<ProjectAdapter.MyViewHolder>() {
 
@@ -60,13 +63,18 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener) : R
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bindProjectInfo(name = projectList[position].projectName.toString(),
-            header = projectList[position].projectSubHeader.toString())
 
-        holder.bindImage(url = projectList[position]?.projectImage.toString())
+        val currentItem  = projectList[position]
+
+        holder.bindProjectInfo(name = currentItem.projectName,
+            header = currentItem.projectSubHeader)
+
+        holder.bindImage(url = currentItem?.projectImage)
 
         holder.binding.card.setOnLongClickListener {
-            Toast.makeText(context, "Long click detected", Toast.LENGTH_SHORT).show()
+
+            val action = ProjectListFragmentDirections.actionProjectListFragmentToEditProjectFragment(currentItem)
+            holder.itemView.findNavController().navigate(action)
             true
         }
 

@@ -13,16 +13,13 @@ import com.example.androidpractice.R
 import com.example.androidpractice.data.project.Project
 import com.example.androidpractice.data.user.User
 import com.example.androidpractice.databinding.FragmentAddProfileBinding
-import com.example.androidpractice.databinding.ProjectViewFragmentLayoutBinding
-import com.example.androidpractice.databinding.ProjectslistFragmentLayoutBinding
-import com.example.androidpractice.viewmodels.MyViewModel
-import com.example.androidpractice.viewmodels.UserViewModel
+import com.example.androidpractice.viewmodels.ProjectViewModel
 
 
 class AddProfileFragment : Fragment() {
 
     lateinit var binding: FragmentAddProfileBinding
-    lateinit var myUserViewModel: UserViewModel
+    lateinit var myProjectViewModel: ProjectViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +33,7 @@ class AddProfileFragment : Fragment() {
             insertDataToDatabase()
         }
 
-        myUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
+        myProjectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
 
         return binding.root
     }
@@ -58,8 +55,8 @@ class AddProfileFragment : Fragment() {
                 projectDescription = projectDescription ) //change this to Projects DAO , Using User data as example through walkthrough
 
             // Add data to Database
-              myUserViewModel.addUser(user)
-              myUserViewModel.addProject(project)
+              myProjectViewModel.addUser(user)
+              myProjectViewModel.addProject(project)
             Toast.makeText(requireContext(), "Added ${projectName} Successfully!",Toast.LENGTH_LONG).show()
             // Go back to ListFragment
             findNavController().navigate(R.id.action_addProfile_Fragment_to_projectList_fragment)

@@ -13,7 +13,7 @@ import com.example.androidpractice.data.user.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserViewModel (application: Application) : AndroidViewModel(application) {
+class ProjectViewModel (application: Application) : AndroidViewModel(application) {
 
     private val readAllData : LiveData<List<User>>
     private val userRepository: UserRepository
@@ -47,6 +47,12 @@ class UserViewModel (application: Application) : AndroidViewModel(application) {
     fun addProject (project: Project){
         viewModelScope.launch(Dispatchers.IO) {
             projectRepository.addProject(project)
+        }
+    }
+
+    fun updateProject (project: Project){
+        viewModelScope.launch(Dispatchers.IO) {
+            projectRepository.updateProject(project)
         }
     }
 
