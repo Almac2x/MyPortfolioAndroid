@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.androidpractice.data.project.Project
@@ -62,8 +63,13 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener) : R
         holder.bindProjectInfo(name = projectList[position].projectName.toString(),
             header = projectList[position].projectSubHeader.toString())
 
-
         holder.bindImage(url = projectList[position]?.projectImage.toString())
+
+        holder.binding.card.setOnLongClickListener {
+            Toast.makeText(context, "Long click detected", Toast.LENGTH_SHORT).show()
+            true
+        }
+
 
           // this creates a new activity when an Item in the RecycleView gets click
        /* holder.itemView.setOnClickListener ( object : View.OnClickListener {

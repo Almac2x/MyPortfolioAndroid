@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_projectList_fragment_to_addProfile_Fragment"
             app:destination="@id/addProfile_Fragment" />
+        <action
+            android:id="@+id/action_projectList_fragment_to_editProjectFragment"
+            app:destination="@id/editProjectFragment" />
     </fragment>
 
     <fragment
@@ -40,6 +43,17 @@
         <action
             android:id="@+id/action_addProfile_Fragment_to_projectView_fragment"
             app:destination="@id/projectView_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProjectFragment"
+        android:name="com.example.androidpractice.fragments.EditProjectFragment"
+        android:label="EditProjectFragment" >
+        <action
+            android:id="@+id/action_editProjectFragment_to_projectList_fragment"
+            app:destination="@id/projectList_fragment" />
+        <argument
+            android:name="currentUser"
+            app:argType="com.example.androidpractice.data.project.Project" />
     </fragment>
 
 

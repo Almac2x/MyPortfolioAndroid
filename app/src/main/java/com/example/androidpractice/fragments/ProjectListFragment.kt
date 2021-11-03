@@ -88,6 +88,8 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
             findNavController().navigate(R.id.action_projectList_fragment_to_addProfile_Fragment)
         }
 
+
+
     }
 
     override fun onItemClickListener(positon: Int) {

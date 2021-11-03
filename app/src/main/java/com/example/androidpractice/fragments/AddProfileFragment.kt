@@ -32,13 +32,16 @@ class AddProfileFragment : Fragment() {
 
         binding = FragmentAddProfileBinding.inflate(layoutInflater)
 
-        binding.addButtonFloatingActionButton.setOnClickListener{
+        binding.addButton.setOnClickListener{
             insertDataToDatabase()
         }
+
         myUserViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         return binding.root
     }
+
+
 
     private fun insertDataToDatabase() {
         val projectName = binding.projectNameEt.text.toString()
