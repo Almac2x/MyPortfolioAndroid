@@ -1,4 +1,4 @@
-package com.example.androidpractice.data
+package com.example.androidpractice.data.user
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,6 +11,6 @@ data class User(
     val lastName : String,
     val position : String,
     val profileImageLoc : String,
-    val profileProjects: MutableList<Project>
+    // val profileProjects: MutableList<Project> // need to make this seriazizable
 )
 

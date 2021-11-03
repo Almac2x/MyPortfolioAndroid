@@ -36,10 +36,11 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
         setupActionBarWithNavController(navController)
 
-        myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        myViewModel = ViewModelProviders.of(this)[MyViewModel::class.java]
         myViewModel.title.observe(this, Observer {
             supportActionBar?.title = it
         })
+
 
     }
 

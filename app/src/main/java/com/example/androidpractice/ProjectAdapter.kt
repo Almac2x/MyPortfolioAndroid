@@ -1,30 +1,18 @@
 package com.example.androidpractice
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
-import androidx.navigation.fragment.findNavController
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.androidpractice.data.Project
+import com.example.androidpractice.data.project.Project
 import com.example.androidpractice.databinding.ProjectItemBinding
-import com.example.androidpractice.fragments.ProjectView_fragment
-import com.example.androidpractice.fragments.projectList_fragment
 
-class ProjectAdapter(val context: Context, private val data: MutableList<Project>, var clicker: OnItemClickListener) : RecyclerView.Adapter<ProjectAdapter.MyViewHolder>() {
+class ProjectAdapter(val context: Context, var clicker: OnItemClickListener) : RecyclerView.Adapter<ProjectAdapter.MyViewHolder>() {
 
      lateinit var binding: ProjectItemBinding
+     private var projectList: List<Project> = emptyList<Project>()
 
     inner class MyViewHolder (val binding: ProjectItemBinding, clickListener: OnItemClickListener) :RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
@@ -55,6 +43,7 @@ class ProjectAdapter(val context: Context, private val data: MutableList<Project
             itemClickListener.onItemClickListener(adapterPosition)
         }
 
+
     }
 
     interface OnItemClickListener{
@@ -70,10 +59,13 @@ class ProjectAdapter(val context: Context, private val data: MutableList<Project
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bindProjectInfo(name = data[position].projectName, header = data[position].projectSubHeader)
-        holder.bindImage(url = data[position].projectImage)
+        holder.bindProjectInfo(name = projectList[position].projectName.toString(),
+            header = projectList[position].projectSubHeader.toString())
 
 
+        holder.bindImage(url = projectList[position]?.projectImage.toString())
+
+          // this creates a new activity when an Item in the RecycleView gets click
        /* holder.itemView.setOnClickListener ( object : View.OnClickListener {
             override fun onClick(v: View?) {
 
@@ -87,6 +79,11 @@ class ProjectAdapter(val context: Context, private val data: MutableList<Project
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return projectList.size
+    }
+
+    fun setData(project : List<Project>){
+        this.projectList = project
+        notifyDataSetChanged()
     }
 }

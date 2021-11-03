@@ -2,6 +2,7 @@ package com.example.androidpractice.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.androidpractice.data.project.Project
 
 @Entity(tableName = "profile_table")
 data class MyProfile (

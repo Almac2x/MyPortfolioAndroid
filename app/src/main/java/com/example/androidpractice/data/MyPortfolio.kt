@@ -1,10 +1,7 @@
 package com.example.androidpractice
 
-import android.provider.ContactsContract
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.example.androidpractice.data.MyProfile
-import com.example.androidpractice.data.Project
+import com.example.androidpractice.data.project.Project
 
 
 class Projects{
@@ -17,7 +14,7 @@ class Projects{
             projectName = "Save the Earth", projectSubHeader = "Stopping the Chinese Invasion",
             projectDescription = "Counter-Strike: Global Offensive (CS: GO) expands upon the team-based action gameplay that it pioneered when it was launched 19 years ago. CS: GO features new maps, characters, weapons, and game modes, and delivers updated versions of the classic CS content."
         ,projectImage  = "https://pbs.twimg.com/media/Dpml28VU4AINtQT.jpg", id = 0
-        ),Project(
+        ), Project(
             projectName = "Mangekyou Sharingan", projectSubHeader = "Half Human Half Uchiha",
             projectDescription = "A Rastaman is a man who is running for a Senate seat to oppose China’s influence in the region. He had already been in the news all over the world for a long time because of his goal to get to stand for elections and to get elected to the Senate.\n" +
                     "\n" +

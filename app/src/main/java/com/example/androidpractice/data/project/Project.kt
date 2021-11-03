@@ -1,9 +1,9 @@
-package com.example.androidpractice.data
+package com.example.androidpractice.data.project
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "projects")
+@Entity(tableName = "project_table")
 data class Project(
     @PrimaryKey(autoGenerate = true)
     val id : Long,

@@ -1,4 +1,4 @@
-package com.example.androidpractice.data
+package com.example.androidpractice.data.user
 
 import androidx.lifecycle.LiveData
 

@@ -1,4 +1,4 @@
-package com.example.androidpractice.data
+package com.example.androidpractice.data.user
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -10,13 +10,9 @@ import androidx.room.Query
 interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addUser(user:User)
+    suspend fun addUser(user: User)
 
     @Query(value = "SELECT * FROM user_table ORDER BY id ASC")
     fun readAllData(): LiveData<List<User>>
-
-
-
-
-
+    
 }
