@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.androidpractice.data.Project
 import com.example.androidpractice.databinding.ProjectItemBinding
 import com.example.androidpractice.fragments.ProjectView_fragment
 import com.example.androidpractice.fragments.projectList_fragment
@@ -84,7 +85,6 @@ class ProjectAdapter(val context: Context, private val data: MutableList<Project
         })*/
 
     }
-
 
     override fun getItemCount(): Int {
         return data.size
