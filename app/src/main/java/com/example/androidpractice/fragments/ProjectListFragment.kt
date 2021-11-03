@@ -93,9 +93,12 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
     override fun onItemClickListener(positon: Int) {
         var bundle = Bundle()
 
-        val projectName = "${myViewModel.myProfiles.profileList[0].profileProjects[positon].projectName}"
-        val projectDescription = "${myViewModel.myProfiles.profileList[0].profileProjects[positon].projectDescription}"
-        val projectImage = "${myViewModel.myProfiles.profileList[0].profileProjects[positon].projectImage}"
+        val project = userViewModel.readAllProjects.value?.get(positon)
+        println( "Project Name: "+ project?.projectName)
+
+        val projectName = "${project?.projectName}"
+        val projectDescription = "${project?.projectDescription}"
+        val projectImage = "${project?.projectImage}"
 
         bundle.putString("projectName",projectName)
         bundle.putString("projectDesc",projectDescription)
