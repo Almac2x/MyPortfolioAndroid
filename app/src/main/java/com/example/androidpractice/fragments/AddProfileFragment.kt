@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.androidpractice.R
 import com.example.androidpractice.data.project.Project
 import com.example.androidpractice.data.user.User
 import com.example.androidpractice.databinding.FragmentAddProfileBinding
+import com.example.androidpractice.viewmodels.MyViewModel
 import com.example.androidpractice.viewmodels.ProjectViewModel
 
 
@@ -20,20 +22,32 @@ class AddProfileFragment : Fragment() {
 
     lateinit var binding: FragmentAddProfileBinding
     lateinit var myProjectViewModel: ProjectViewModel
+    lateinit var myViewModel: MyViewModel
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+
+        super.onActivityCreated(savedInstanceState)
+        activity?.run {
+            myViewModel = ViewModelProviders.of(this)[MyViewModel::class.java]
+        } ?: throw Throwable("invalid activity")
+        myViewModel.updateActionBarTitle("Add Project")
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
 
+        // Inflate the layout for this fragment
         binding = FragmentAddProfileBinding.inflate(layoutInflater)
 
         binding.addButton.setOnClickListener{
             insertDataToDatabase()
         }
-
         myProjectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
+        myViewModel = ViewModelProvider(this)[MyViewModel::class.java]
+
 
         return binding.root
     }

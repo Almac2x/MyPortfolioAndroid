@@ -36,7 +36,7 @@ class ProjectViewModel (application: Application) : AndroidViewModel(application
         readAllProjects =  projectRepository.readAllData
     }
 
-    //A coroutine function that does not run on the main thread that enables the Viewmodel
+    //A coroutine function that does not run on the main thread that enables the ViewModel
     // to call the Dao function in the repository
     fun addUser(user: User){
         viewModelScope.launch(Dispatchers.IO) {

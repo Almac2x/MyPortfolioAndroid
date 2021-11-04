@@ -3,13 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2328125" />
         <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/drawable/divider.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/drawable/ic_add_white_24dp.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/drawable/ic_baseline_delete_sweep_24.xml" value="0.22135416666666666" />
+        <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2328125" />
         <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/layout/fragment_add_profile.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/layout/fragment_add_profile_layout.xml" value="0.403125" />
-        <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/layout/fragment_edit_project.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/layout/fragment_edit_project.xml" value="0.1" />
         <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/layout/fragment_project_list_fragmentasdfa.xml" value="0.2441123188405797" />
         <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/layout/main_profile.xml" value="0.4173728813559322" />
         <entry key="..\:/Users/bland/AndroidStudioProjects/jet-203-exercise-1/app/src/main/res/layout/project_item.xml" value="0.5" />

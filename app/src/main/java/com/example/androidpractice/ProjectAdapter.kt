@@ -19,16 +19,15 @@ import com.example.androidpractice.viewmodels.ProjectViewModel
 
 class ProjectAdapter(val context: Context, var clicker: OnItemClickListener,val viewModelProvider : ProjectViewModel) : RecyclerView.Adapter<ProjectAdapter.MyViewHolder>() {
 
-     lateinit var binding: ProjectItemBinding
-     private var projectList: List<Project> = emptyList<Project>()
+    lateinit var binding: ProjectItemBinding
+    private var projectList: List<Project> = emptyList<Project>()
     private lateinit var projectViewModel: ProjectViewModel
 
     inner class MyViewHolder (val binding: ProjectItemBinding, clickListener: OnItemClickListener) :RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
-        lateinit var itemClickListener : OnItemClickListener
+        var itemClickListener : OnItemClickListener = clickListener
 
         init {
-            this.itemClickListener = clickListener
             itemView.setOnClickListener(this)
         }
 
@@ -43,9 +42,6 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener,val 
                 Glide.with(context).load(imageUrl).into(binding.projectImageView)
             }
 
-          /*  if (url != null) {
-                Glide.with(context).load(url).into(binding.projectImageView)
-            }*/
         }
 
         override fun onClick(p0: View?) {
@@ -88,7 +84,6 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener,val 
                 projectViewModel.deleteProject(currentItem)
                 Toast.makeText(context, "Removed project ${currentItem.projectName}",Toast.LENGTH_SHORT).show()
 
-
             }
             alertDialog.setNegativeButton("Edit"){_,_->
                 val action = ProjectListFragmentDirections.actionProjectListFragmentToEditProjectFragment(currentItem)
@@ -100,17 +95,6 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener,val 
             true
         }
 
-          // this creates a new activity when an Item in the RecycleView gets click
-       /* holder.itemView.setOnClickListener ( object : View.OnClickListener {
-            override fun onClick(v: View?) {
-
-                val activity = v?.context as AppCompatActivity
-                val fragment = ProjectView_fragment()
-                activity.supportFragmentManager.beginTransaction().replace(R.id.nav_host_fragment_container,fragment).addToBackStack(null).commit()
-
-            }
-        })*/
-
     }
 
     override fun getItemCount(): Int {
@@ -120,6 +104,10 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener,val 
     fun setData(project : List<Project>){
         this.projectList = project
         notifyDataSetChanged()
+    }
+
+    fun itemOptions(){
+
     }
 
 

@@ -39,8 +39,11 @@ class EditProjectFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        // Inflate the layout for this fragment
 
+        setHasOptionsMenu(true)
+
+        // Inflate the layout for this fragment
+        
         binding = FragmentEditProjectBinding.inflate(layoutInflater)
 
         projectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
@@ -88,34 +91,6 @@ class EditProjectFragment : Fragment() {
 
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.delete_menu,menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.menu.delete_menu){
-            deleteProject()
-        }
-
-            return super.onOptionsItemSelected(item)
-    }
-
-    private fun deleteProject() {
-        val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Delete ${args.currentProject.projectName}?")
-        builder.setMessage("Do you want to delete this project: \n ${args.currentProject.projectName} ")
-        builder.setPositiveButton("Yes"){_,_ ->
-
-            projectViewModel.deleteProject(args.currentProject)
-            Toast.makeText(requireContext(), "Removed project ${args.currentProject.projectName}",Toast.LENGTH_SHORT).show()
-
-        }
-        builder.setNegativeButton("No"){_,_->
-
-        }
-        builder.create().show()
-    }
 
 
 }

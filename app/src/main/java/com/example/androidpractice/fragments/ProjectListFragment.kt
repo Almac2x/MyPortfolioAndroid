@@ -1,8 +1,13 @@
 package com.example.androidpractice.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -36,6 +41,8 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setHasOptionsMenu(true)
+
         //Initialize ViewModel in this Fragment
         myViewModel = ViewModelProvider(this)[MyViewModel::class.java] // remove this after projectViewModel is setup properly
         projectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
@@ -52,7 +59,6 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
         projectViewModel.readAllProjects.observe(viewLifecycleOwner, Observer { project ->
             adapter.setData(project)
         })
-
 
 
         val profileName = "${ myViewModel.myProfiles.profileList[0].firstName} ${ myViewModel.myProfiles.profileList[0].lastName}"
@@ -78,7 +84,6 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
         }
 
 
-
     }
 
     override fun onItemClickListener(positon: Int) {
@@ -96,6 +101,34 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
         bundle.putString("projectImage",projectImage)
 
         findNavController().navigate(R.id.action_projectList_fragment_to_projectView_fragment, bundle)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.menu.delete_menu){
+            deleteAllProjects()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteAllProjects() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Delete all Projects?")
+        builder.setMessage("Do you want to delete all the projects for this user? ")
+        builder.setPositiveButton("Yes"){_,_ ->
+
+            projectViewModel.deleteAllProjects()
+
+        }
+        builder.setNegativeButton("No"){_,_->
+
+        }
+        builder.create()
+        builder.show()
     }
 
 

@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent=".90"
+        android:gravity="center|bottom"
         tools:context=".add.AddWordsFragment">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -55,16 +56,17 @@
             android:id="@+id/description_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_marginBottom="20dp"
             android:hint="Project Description">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description_et"
+                android:gravity="top|start"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:imeOptions="actionGo"
-                android:inputType="textAutoComplete" />
+                android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -72,7 +74,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="50dp"
+
             android:hint="Image URL">
 
             <com.google.android.material.textfield.TextInputEditText
