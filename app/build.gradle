@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.androidpractice"
-        minSdk 25
+        minSdk 26
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -41,8 +41,9 @@ android {
 
 dependencies {
 
-    //For Navigation
     implementation("androidx.cardview:cardview:1.0.0")
+    //For Navigation
+
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 

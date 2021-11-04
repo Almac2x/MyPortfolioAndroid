@@ -45,7 +45,6 @@ class ProjectView_fragment : Fragment() {
 
         val url = arguments?.get("projectImage")
 
-
         Glide.with(this).load(url).into(binding.projectImageBigView)
 
         binding.descriptionTextView.text = arguments?.get("projectDesc").toString()

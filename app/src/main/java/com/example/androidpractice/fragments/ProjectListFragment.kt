@@ -36,18 +36,19 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Initialize ViewModel in this Fragment
+        myViewModel = ViewModelProvider(this)[MyViewModel::class.java] // remove this after projectViewModel is setup properly
+        projectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
+
         //Initialize bind
         binding = ProjectslistFragmentLayoutBinding.bind(view)
 
         //RecycleView implementations
         val rcv = binding.projectListRecycleViewer
         //rcv?.adapter = ProjectAdapter(requireContext(),myViewModel.myProfiles.profileList[0].profileProjects,this)
-        val adapter = ProjectAdapter( clicker = this,context = requireContext())
+        val adapter = ProjectAdapter( clicker = this,context = requireContext(),viewModelProvider = projectViewModel)
         rcv?.adapter = adapter
 
-        //Initialize ViewModel in this Fragment
-        myViewModel = ViewModelProvider(this)[MyViewModel::class.java] // remove this after projectViewModel is setup properly
-        projectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
         projectViewModel.readAllProjects.observe(viewLifecycleOwner, Observer { project ->
             adapter.setData(project)
         })

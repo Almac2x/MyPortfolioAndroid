@@ -11,8 +11,13 @@ interface ProjectDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addProject(project: Project)
 
+    //Delete All project
     @Delete
     suspend fun deleteProject(project: Project)
+
+    //Deletes All Project
+    @Query(value = "DELETE FROM project_table")
+    suspend fun deleteAllProjects()
 
     @Update
     suspend fun updateProject(project:Project)

@@ -1,18 +1,19 @@
 package com.example.androidpractice.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.androidpractice.R
 import com.example.androidpractice.data.project.Project
 import com.example.androidpractice.databinding.FragmentEditProjectBinding
+import com.example.androidpractice.viewmodels.MyViewModel
 import com.example.androidpractice.viewmodels.ProjectViewModel
 
 
@@ -21,6 +22,18 @@ class EditProjectFragment : Fragment() {
     private val args by navArgs<EditProjectFragmentArgs>()
     lateinit var  binding: FragmentEditProjectBinding
     private lateinit var projectViewModel: ProjectViewModel
+    private lateinit var myViewModel : MyViewModel
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+
+        super.onActivityCreated(savedInstanceState)
+        activity?.run {
+            myViewModel = ViewModelProviders.of(this)[MyViewModel::class.java]
+        } ?: throw Throwable("invalid activity")
+        myViewModel.updateActionBarTitle(args?.currentProject.projectName)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +64,6 @@ class EditProjectFragment : Fragment() {
         val imageURL = binding.imageURLUpdateEt.text.toString()
         val projectDescription = binding.descriptionEt.text.toString()
 
-
         if (inputCheck(projectName,projectHeader,imageURL,projectDescription)){
 
             // Create Project Object again
@@ -74,6 +86,35 @@ class EditProjectFragment : Fragment() {
         return !(TextUtils.isEmpty(projectName) && TextUtils.isEmpty(projectHeader) && TextUtils.isEmpty(projectDescription)
                 && TextUtils.isEmpty(imageURL))
 
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.menu.delete_menu){
+            deleteProject()
+        }
+
+            return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteProject() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Delete ${args.currentProject.projectName}?")
+        builder.setMessage("Do you want to delete this project: \n ${args.currentProject.projectName} ")
+        builder.setPositiveButton("Yes"){_,_ ->
+
+            projectViewModel.deleteProject(args.currentProject)
+            Toast.makeText(requireContext(), "Removed project ${args.currentProject.projectName}",Toast.LENGTH_SHORT).show()
+
+        }
+        builder.setNegativeButton("No"){_,_->
+
+        }
+        builder.create().show()
     }
 
 

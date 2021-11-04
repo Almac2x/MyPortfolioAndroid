@@ -1,10 +1,13 @@
 package com.example.androidpractice
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -12,11 +15,13 @@ import com.example.androidpractice.data.project.Project
 import com.example.androidpractice.databinding.ProjectItemBinding
 import com.example.androidpractice.fragments.EditProjectFragmentDirections
 import com.example.androidpractice.fragments.ProjectListFragmentDirections
+import com.example.androidpractice.viewmodels.ProjectViewModel
 
-class ProjectAdapter(val context: Context, var clicker: OnItemClickListener) : RecyclerView.Adapter<ProjectAdapter.MyViewHolder>() {
+class ProjectAdapter(val context: Context, var clicker: OnItemClickListener,val viewModelProvider : ProjectViewModel) : RecyclerView.Adapter<ProjectAdapter.MyViewHolder>() {
 
      lateinit var binding: ProjectItemBinding
      private var projectList: List<Project> = emptyList<Project>()
+    private lateinit var projectViewModel: ProjectViewModel
 
     inner class MyViewHolder (val binding: ProjectItemBinding, clickListener: OnItemClickListener) :RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
@@ -58,6 +63,8 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener) : R
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ProjectItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        this.projectViewModel = viewModelProvider
+
         return MyViewHolder(binding,clicker)
 
     }
@@ -73,11 +80,25 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener) : R
 
         holder.binding.card.setOnLongClickListener {
 
-            val action = ProjectListFragmentDirections.actionProjectListFragmentToEditProjectFragment(currentItem)
-            holder.itemView.findNavController().navigate(action)
+            val alertDialog = AlertDialog.Builder(context)
+            alertDialog.setTitle("Project: ${currentItem.projectName}")
+            alertDialog.setMessage("What do you want to do with: \n ${currentItem.projectName}")
+            alertDialog.setPositiveButton("Delete"){_,_ ->
+
+                projectViewModel.deleteProject(currentItem)
+                Toast.makeText(context, "Removed project ${currentItem.projectName}",Toast.LENGTH_SHORT).show()
+
+
+            }
+            alertDialog.setNegativeButton("Edit"){_,_->
+                val action = ProjectListFragmentDirections.actionProjectListFragmentToEditProjectFragment(currentItem)
+                holder.itemView.findNavController().navigate(action)
+            }
+
+            alertDialog.create().show()
+
             true
         }
-
 
           // this creates a new activity when an Item in the RecycleView gets click
        /* holder.itemView.setOnClickListener ( object : View.OnClickListener {
@@ -100,4 +121,6 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener) : R
         this.projectList = project
         notifyDataSetChanged()
     }
+
+
 }
