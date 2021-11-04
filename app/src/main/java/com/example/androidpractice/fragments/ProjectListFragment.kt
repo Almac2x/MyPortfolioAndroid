@@ -2,11 +2,8 @@ package com.example.androidpractice.fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -38,10 +35,21 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
 
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        setHasOptionsMenu(true)
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setHasOptionsMenu(true)
+
 
         //Initialize ViewModel in this Fragment
         myViewModel = ViewModelProvider(this)[MyViewModel::class.java] // remove this after projectViewModel is setup properly
@@ -69,8 +77,6 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
         // initialize here the Profile Pic at Fragment Starup
         Glide.with(view).load(myViewModel.myProfiles.profileList[0].profileImageLoc).into(binding.profilePic)
 
-
-
         //val divider = DividerItemDecoration(this.context,DividerItemDecoration.VERTICAL)
        // ResourcesCompat.getDrawable(resources,R.drawable.divider,null)?.let { divider.setDrawable(it) }
 
@@ -82,7 +88,6 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
         binding.floatingActionBar.setOnClickListener(){
             findNavController().navigate(R.id.action_projectList_fragment_to_addProfile_Fragment)
         }
-
 
     }
 
@@ -104,11 +109,13 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.delete_menu,menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.menu.delete_menu){
+
+        if(item.itemId == R.id.menu_delete){
             deleteAllProjects()
         }
 
@@ -120,7 +127,6 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
         builder.setTitle("Delete all Projects?")
         builder.setMessage("Do you want to delete all the projects for this user? ")
         builder.setPositiveButton("Yes"){_,_ ->
-
             projectViewModel.deleteAllProjects()
 
         }
