@@ -20,7 +20,7 @@ class ProjectViewModel (application: Application) : AndroidViewModel(application
 
     private val projectRepository: ProjectRepository
      val readAllProjects : LiveData<List<Project>>
-    fun get() = run { readAllProjects.value?.toMutableList() }
+    fun get() = run { readAllProjects.value?.toMutableList() } // not use since I've use LiveData inside it is a List<Project> instead
 
     init {
         //gets the dao of all data types in the Database

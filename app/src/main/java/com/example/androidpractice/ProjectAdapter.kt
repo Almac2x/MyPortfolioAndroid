@@ -17,18 +17,19 @@ import com.example.androidpractice.fragments.EditProjectFragmentDirections
 import com.example.androidpractice.fragments.ProjectListFragmentDirections
 import com.example.androidpractice.viewmodels.ProjectViewModel
 
-class ProjectAdapter(val context: Context, var clicker: OnItemClickListener,val viewModelProvider : ProjectViewModel) : RecyclerView.Adapter<ProjectAdapter.MyViewHolder>() {
+class ProjectAdapter(val context: Context, var clicker: OnItemClickListener,var clickerLong: OnItemLongClickListener) : RecyclerView.Adapter<ProjectAdapter.MyViewHolder>() {
 
     lateinit var binding: ProjectItemBinding
     private var projectList: List<Project> = emptyList<Project>()
-    private lateinit var projectViewModel: ProjectViewModel
 
-    inner class MyViewHolder (val binding: ProjectItemBinding, clickListener: OnItemClickListener) :RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+    inner class MyViewHolder (val binding: ProjectItemBinding, clickListener: OnItemClickListener, longClick : OnItemLongClickListener) :RecyclerView.ViewHolder(binding.root), View.OnClickListener,View.OnLongClickListener {
 
         var itemClickListener : OnItemClickListener = clickListener
+        var itemLongClickListener : OnItemLongClickListener = longClick
 
         init {
             itemView.setOnClickListener(this)
+            itemView.setOnLongClickListener(this)
         }
 
         fun bindProjectInfo(name: String, header:String) {
@@ -48,20 +49,28 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener,val 
             itemClickListener.onItemClickListener(adapterPosition)
         }
 
+        override fun onLongClick(p0: View?): Boolean {
+
+            itemLongClickListener.onItemLongClickListener((adapterPosition))
+            return true
+        }
+
 
     }
 
     interface OnItemClickListener{
-
         fun onItemClickListener (positon: Int)
+    }
+
+    interface OnItemLongClickListener{
+        fun onItemLongClickListener (positon: Int)
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val binding = ProjectItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        this.projectViewModel = viewModelProvider
+         binding = ProjectItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return MyViewHolder(binding,clicker)
+        return MyViewHolder(binding,clicker,clickerLong)
 
     }
 
@@ -74,26 +83,6 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener,val 
 
         holder.bindImage(url = currentItem?.projectImage)
 
-        holder.binding.card.setOnLongClickListener {
-
-            val alertDialog = AlertDialog.Builder(context)
-            alertDialog.setTitle("Project: ${currentItem.projectName}")
-            alertDialog.setMessage("What do you want to do with: \n ${currentItem.projectName}")
-            alertDialog.setPositiveButton("Delete"){_,_ ->
-
-                projectViewModel.deleteProject(currentItem)
-                Toast.makeText(context, "Removed project ${currentItem.projectName}",Toast.LENGTH_SHORT).show()
-
-            }
-            alertDialog.setNegativeButton("Edit"){_,_->
-                val action = ProjectListFragmentDirections.actionProjectListFragmentToEditProjectFragment(currentItem)
-                holder.itemView.findNavController().navigate(action)
-            }
-
-            alertDialog.create().show()
-
-            true
-        }
 
     }
 

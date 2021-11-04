@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -22,10 +23,8 @@ import com.example.androidpractice.viewmodels.ProjectViewModel
 class AddProfileFragment : Fragment() {
 
     lateinit var binding: FragmentAddProfileBinding
-    lateinit var myProjectViewModel: ProjectViewModel
-    lateinit var myViewModel: MyViewModel
-
-
+    val myProjectViewModel: ProjectViewModel by activityViewModels()
+    val myViewModel: MyViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +41,6 @@ class AddProfileFragment : Fragment() {
         binding.addButton.setOnClickListener{
             insertDataToDatabase()
         }
-        myProjectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
-        myViewModel = ViewModelProvider(this)[MyViewModel::class.java]
-
 
         return binding.root
     }
@@ -76,7 +72,6 @@ class AddProfileFragment : Fragment() {
     private fun inputCheck( projectName : String, projectHeader: String, imageURL : String, projectDescription: String): Boolean { // checks if the EditText are all not empty
         return !(TextUtils.isEmpty(projectName) && TextUtils.isEmpty(projectHeader) && TextUtils.isEmpty(projectDescription)
                 && TextUtils.isEmpty(imageURL))
-
     }
 
 

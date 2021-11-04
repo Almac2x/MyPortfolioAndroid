@@ -7,8 +7,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.androidpractice.R
@@ -22,8 +21,8 @@ class EditProjectFragment : Fragment() {
 
     private val args by navArgs<EditProjectFragmentArgs>()
     lateinit var  binding: FragmentEditProjectBinding
-    private lateinit var projectViewModel: ProjectViewModel
-    private lateinit var myViewModel : MyViewModel
+    val projectViewModel: ProjectViewModel by activityViewModels()
+    val myViewModel : MyViewModel by activityViewModels()
 
 
 
@@ -41,8 +40,6 @@ class EditProjectFragment : Fragment() {
         // Inflate the layout for this fragment
 
         binding = FragmentEditProjectBinding.inflate(layoutInflater)
-
-        projectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
 
         //gets the currentProject from Parceable args  initiated in the navigation graph
         binding.projectNameUpdateEt.setText(args.currentProject.projectName)

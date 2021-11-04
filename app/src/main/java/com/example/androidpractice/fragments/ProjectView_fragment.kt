@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuView
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -21,7 +22,7 @@ import com.example.androidpractice.viewmodels.MyViewModel
 class ProjectView_fragment : Fragment() {
 
     lateinit var binding: ProjectViewFragmentLayoutBinding
-    lateinit var myViewModel: MyViewModel
+    private val myViewModel: MyViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -35,8 +36,6 @@ class ProjectView_fragment : Fragment() {
         actionBarTitle?.title = arguments?.get("projectName").toString()
 
         binding = ProjectViewFragmentLayoutBinding.inflate(layoutInflater)
-
-        myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
 
         binding.descriptionTextView.movementMethod = ScrollingMovementMethod()
 

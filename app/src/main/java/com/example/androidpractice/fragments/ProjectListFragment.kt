@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -20,11 +21,11 @@ import com.example.androidpractice.viewmodels.MyViewModel
 import com.example.androidpractice.viewmodels.ProjectViewModel
 
 
-class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  ProjectAdapter.OnItemClickListener{
+class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  ProjectAdapter.OnItemClickListener,ProjectAdapter.OnItemLongClickListener{
 
     lateinit var binding: ProjectslistFragmentLayoutBinding
-    lateinit var myViewModel : MyViewModel
-    lateinit var projectViewModel: ProjectViewModel
+    private val myViewModel : MyViewModel by activityViewModels()
+    private val projectViewModel: ProjectViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +34,8 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
     ): View? {
 
         setHasOptionsMenu(true)
+        val actionBarTitle = (activity as AppCompatActivity).supportActionBar
+        actionBarTitle?.title = "My Profile"
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -40,33 +43,25 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val actionBarTitle = (activity as AppCompatActivity).supportActionBar
-        actionBarTitle?.title = "My Profile"
-
-        //Initialize ViewModel in this Fragment
-        myViewModel = ViewModelProvider(this)[MyViewModel::class.java] // remove this after projectViewModel is setup properly
-        projectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
-
         //Initialize bind
         binding = ProjectslistFragmentLayoutBinding.bind(view)
 
         //RecycleView implementations
         val rcv = binding.projectListRecycleViewer
         //rcv?.adapter = ProjectAdapter(requireContext(),myViewModel.myProfiles.profileList[0].profileProjects,this)
-        val adapter = ProjectAdapter( clicker = this,context = requireContext(),viewModelProvider = projectViewModel)
+        val adapter = ProjectAdapter( clicker = this,context = requireContext(),clickerLong = this )
         rcv?.adapter = adapter
 
         projectViewModel.readAllProjects.observe(viewLifecycleOwner, Observer { project ->
             adapter.setData(project)
         })
 
-
         val profileName = "${ myViewModel.myProfiles.profileList[0].firstName} ${ myViewModel.myProfiles.profileList[0].lastName}"
 
         binding.profileNameView.text = "${profileName}"
         binding.profilePositionView.text = "${ myViewModel.myProfiles.profileList[0].position}"
 
-        // initialize here the Profile Pic at Fragment Starup
+        // initialize here the Profile Pic at Fragment Startup
         Glide.with(view).load(myViewModel.myProfiles.profileList[0].profileImageLoc).into(binding.profilePic)
 
         //val divider = DividerItemDecoration(this.context,DividerItemDecoration.VERTICAL)
@@ -80,6 +75,31 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
         binding.floatingActionBar.setOnClickListener(){
             findNavController().navigate(R.id.action_projectList_fragment_to_addProfile_Fragment)
         }
+
+    }
+
+    override fun onItemLongClickListener (positon: Int){
+
+        val currentItem  = projectViewModel.readAllProjects.value?.get(positon)
+
+        val alertDialog = AlertDialog.Builder(context)
+        alertDialog.setTitle("Project: ${currentItem?.projectName}")
+        alertDialog.setMessage("What do you want to do with: \n ${currentItem?.projectName}")
+        alertDialog.setPositiveButton("Delete"){_,_ ->
+
+            currentItem?.let { projectViewModel.deleteProject(it) }
+            Toast.makeText(context, "Removed project ${currentItem?.projectName}",Toast.LENGTH_SHORT).show()
+
+        }
+        alertDialog.setNegativeButton("Edit"){_,_->
+            val action = currentItem?.let {
+                ProjectListFragmentDirections.actionProjectListFragmentToEditProjectFragment(it)
+            }
+            action?.let { findNavController().navigate(it) }
+        }
+        alertDialog.create().show()
+
+        true
 
     }
 
