@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.menu.MenuView
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -22,20 +23,16 @@ class ProjectView_fragment : Fragment() {
     lateinit var binding: ProjectViewFragmentLayoutBinding
     lateinit var myViewModel: MyViewModel
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        activity?.run {
-            myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        } ?: throw Throwable("invalid activity")
-        myViewModel.updateActionBarTitle(arguments?.get("projectName").toString())
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        // Add this to all fragment
+        val actionBarTitle = (activity as AppCompatActivity).supportActionBar
+        actionBarTitle?.title = arguments?.get("projectName").toString()
 
         binding = ProjectViewFragmentLayoutBinding.inflate(layoutInflater)
 

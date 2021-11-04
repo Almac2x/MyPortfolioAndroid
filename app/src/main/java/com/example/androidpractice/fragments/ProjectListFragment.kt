@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -25,16 +26,6 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
     lateinit var myViewModel : MyViewModel
     lateinit var projectViewModel: ProjectViewModel
 
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        activity?.run {
-            myViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        } ?: throw Throwable("invalid activity")
-        myViewModel.updateActionBarTitle("MyPortfolio")
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,7 +40,8 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        val actionBarTitle = (activity as AppCompatActivity).supportActionBar
+        actionBarTitle?.title = "My Profile"
 
         //Initialize ViewModel in this Fragment
         myViewModel = ViewModelProvider(this)[MyViewModel::class.java] // remove this after projectViewModel is setup properly

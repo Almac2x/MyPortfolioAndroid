@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -24,20 +25,16 @@ class AddProfileFragment : Fragment() {
     lateinit var myProjectViewModel: ProjectViewModel
     lateinit var myViewModel: MyViewModel
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
 
-        super.onActivityCreated(savedInstanceState)
-        activity?.run {
-            myViewModel = ViewModelProviders.of(this)[MyViewModel::class.java]
-        } ?: throw Throwable("invalid activity")
-        myViewModel.updateActionBarTitle("Add Project")
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+
+      //Change the title of the Action Bar
+        val actionBarTitle = (activity as AppCompatActivity).supportActionBar
+        actionBarTitle?.title = "Add Project"
 
         // Inflate the layout for this fragment
         binding = FragmentAddProfileBinding.inflate(layoutInflater)
@@ -51,8 +48,6 @@ class AddProfileFragment : Fragment() {
 
         return binding.root
     }
-
-
 
     private fun insertDataToDatabase() {
         val projectName = binding.projectNameEt.text.toString()

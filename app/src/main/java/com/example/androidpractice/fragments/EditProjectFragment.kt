@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -25,15 +26,6 @@ class EditProjectFragment : Fragment() {
     private lateinit var myViewModel : MyViewModel
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-
-        super.onActivityCreated(savedInstanceState)
-        activity?.run {
-            myViewModel = ViewModelProviders.of(this)[MyViewModel::class.java]
-        } ?: throw Throwable("invalid activity")
-        myViewModel.updateActionBarTitle(args?.currentProject.projectName)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +34,12 @@ class EditProjectFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
+        // Add this to all fragment
+        val actionBarTitle = (activity as AppCompatActivity).supportActionBar
+        actionBarTitle?.title = args?.currentProject.projectName
+
         // Inflate the layout for this fragment
-        
+
         binding = FragmentEditProjectBinding.inflate(layoutInflater)
 
         projectViewModel = ViewModelProvider(this)[ProjectViewModel::class.java]
