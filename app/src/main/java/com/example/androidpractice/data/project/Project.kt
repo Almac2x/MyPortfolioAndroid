@@ -10,7 +10,7 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "project_table")
 data class Project(
     @PrimaryKey(autoGenerate = true)
-    val id : Long,
+    var id : Long,
     val projectName: String,
     val projectSubHeader: String,
     val projectDescription: String,

@@ -41,7 +41,7 @@ class MyProfiles {
         profileList = mutableListOf<MyProfile>(
             MyProfile( firstName = "Rasta", lastName = "Man", position = "Software Engineer Trainee",
                 profileImageLoc = "https://www.manilachannel.com/wp-content/uploads/2021/10/2.jpg", profileProjects = Projects().projectList
-            )
+            ,id = 0)
         )
     }
 

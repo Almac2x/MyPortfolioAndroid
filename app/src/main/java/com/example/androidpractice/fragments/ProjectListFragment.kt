@@ -50,7 +50,7 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
         val rcv = binding.projectListRecycleViewer
         //rcv?.adapter = ProjectAdapter(requireContext(),myViewModel.myProfiles.profileList[0].profileProjects,this)
         val adapter = ProjectAdapter( clicker = this,context = requireContext(),clickerLong = this )
-        rcv?.adapter = adapter
+        rcv.adapter = adapter
 
         projectViewModel.readAllProjects.observe(viewLifecycleOwner, Observer { project ->
             adapter.setData(project)
@@ -72,7 +72,7 @@ class ProjectListFragment : Fragment(R.layout.projectslist_fragment_layout) ,  P
         rcv.addItemDecoration(divider)
 
         //Navigates to the add Project Fragment
-        binding.floatingActionBar.setOnClickListener(){
+        binding.floatingActionBar.setOnClickListener {
             findNavController().navigate(R.id.action_projectList_fragment_to_addProfile_Fragment)
         }
 

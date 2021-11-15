@@ -35,4 +35,15 @@ platform :android do
     gradle(task: "clean assembleRelease")
     upload_to_play_store
   end
+
+      desc "My awesome app"
+      lane :distribute do
+          gradle(task: "clean assembleRelease")
+          # build_android_app is a built-in fastlane action.
+          firebase_app_distribution(
+              app: "1:107681388126:android:328905d53035fb04e786cf",
+              testers: "alejandro_blando@yahoo.com, christianlloyd.b.salon@gmail.com,agoybautista@gmail.com,johnlouisgosgolan@gmail.com,kevinguadalupvega@gmail.com",
+              release_notes: "Lots of amazing new features to test out!"
+          )
+      end
 end

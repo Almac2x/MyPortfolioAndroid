@@ -81,7 +81,7 @@ class ProjectAdapter(val context: Context, var clicker: OnItemClickListener,var 
         holder.bindProjectInfo(name = currentItem.projectName,
             header = currentItem.projectSubHeader)
 
-        holder.bindImage(url = currentItem?.projectImage)
+        holder.bindImage(url = currentItem.projectImage)
 
 
     }

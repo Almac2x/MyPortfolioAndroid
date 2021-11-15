@@ -35,7 +35,7 @@ class EditProjectFragment : Fragment() {
 
         // Add this to all fragment
         val actionBarTitle = (activity as AppCompatActivity).supportActionBar
-        actionBarTitle?.title = args?.currentProject.projectName
+        actionBarTitle?.title = args.currentProject.projectName
 
         // Inflate the layout for this fragment
 
