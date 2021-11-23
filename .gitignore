@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+/fastlane/.env.default
+keystore.properties
+app/practice_keystore.jks

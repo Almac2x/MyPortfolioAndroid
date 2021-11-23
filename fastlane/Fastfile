@@ -13,7 +13,16 @@
 # Uncomment the line if you want fastlane to automatically update itself
 # update_fastlane
 
+fastlane_require 'dotenv'
+
+before_all do
+  Dotenv.overload '.env.secret'
+end
+
+
 default_platform(:android)
+
+
 
 platform :android do
   desc "Runs all the tests"
@@ -41,9 +50,9 @@ platform :android do
           gradle(task: "clean assembleRelease")
           # build_android_app is a built-in fastlane action.
           firebase_app_distribution(
-              app: "1:107681388126:android:328905d53035fb04e786cf",
-              testers: "alejandro_blando@yahoo.com, christianlloyd.b.salon@gmail.com,agoybautista@gmail.com,johnlouisgosgolan@gmail.com,kevinguadalupvega@gmail.com",
-              release_notes: "Lots of amazing new features to test out!"
+              app: ENV['APP_ID'],
+              groups: "android-fortis",
+              release_notes: "Lots of amazing new features to test out!",
           )
       end
 end

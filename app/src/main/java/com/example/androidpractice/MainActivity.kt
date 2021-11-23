@@ -46,8 +46,11 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        print("nani2")
 
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
+    //Hello JLo
 
 }
